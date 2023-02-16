@@ -4,18 +4,18 @@ const bcrypt = require('bcrypt');
 
 
 
-const securePassword = async (password) =>                                                                                                                                                                                                                                                                                                                   {
-try{
-const passhash = await bcrypt.hash(password,10);
-return passhash;
-}
-catch(error){
-    console.log(error.message);
+// const securePassword = async (password) =>                                                                                                                                                                                                                                                                                                                   {
+// try{
+// const passhash = await bcrypt.hash(password,10);
+// return passhash;
+// }
+// catch(error){
+//     console.log(error.message);
  
-}
+// }
 
 
-}
+// }
 const loadRegister = async(req,res)=>{
     try{
          res.render('registration');
@@ -28,28 +28,28 @@ const loadRegister = async(req,res)=>{
 
 const insertUser = async(req,res)=>{
     try{
-const spass= await securePassword(req.body.password);
-const user = new User({
-    name:req.body.name,
-    email:req.body.email,
-    mobile:req.body.mobile,
-    image:req.body.image,
-    // image:req.body.image,
-    password:spass,
-    is_admin:0
-});
+// const spass= await securePassword(req.body.password);
+// const user = new User({
+//     name:req.body.name,
+//     email:req.body.email,
+//     mobile:req.body.mobile,
+//     image:req.body.image,
+//     // image:req.body.image,
+//     password:spass,
+//     is_admin:0
+// });
 
 
-const userData = await user.save();
-if(userData)
-{
+// const userData = await user.save();
+// if(userData)
+// {
     res.render('registration',{message:"register sucessfully"});
-}
-else
-{
-    res.render('registration',{message:"register failed"});
+// }
+// else
+// {
+//     res.render('registration',{message:"register failed"});
 
-}
+// }
     }
     catch(error){
         console.log(error.message);
@@ -74,31 +74,31 @@ const verifylogin = async(req,res)=>{
         const email =req.body.email;
         const password =req.body.password;
 
-const userdata = await User.findOne({email:email});
+// const userdata = await User.findOne({email:email});
   
-console.log(userdata.email)
+// console.log(userdata.email)
 
 
-   if(userdata)
+   if(email == "raghu" )
    {
-       const passcheck = await bcrypt.compare(password, userdata.password)
+    //    const passcheck = await bcrypt.compare(password, userdata.password)
 
-       if(passcheck)
-       {
+    //    if(passcheck)
+    //    {
            req.session.user_id = userdata._id;
            
            res.redirect('/home');
        }
        else{
-        res.render('login',{message:"password is not correct"});
+        res.render('login',{message:"email is not correct"});
        }
     }
-else
-{
-    res.render('login',{message:"user name not there"})
-}
+// else
+// {
+//     res.render('login',{message:"user name not there"})
+// }
 
-    }
+    // }
     catch(error){
         console.log(error.message);
     
